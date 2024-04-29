@@ -350,6 +350,7 @@
           </v-btn>
           <span>{{ $t('Delete') }}</span>
         </v-tooltip>
+        
         <v-text-field
           v-if="showNote"
           v-model.trim="noteText"
@@ -372,6 +373,20 @@
             </v-icon>
           </v-btn>
           <span>{{ $t('AddNote') }}</span>
+        </v-tooltip>
+        
+        <v-tooltip bottom>
+          <v-btn
+            slot="activator"
+            icon
+            class="btn--plain"
+            @click="bulkDeleteLastNote()"
+          >
+            <v-icon>
+              cancel_presentation
+            </v-icon>
+          </v-btn>
+          <span>{{ $t('DeleteNote') }}</span>
         </v-tooltip>
 
         <v-menu
@@ -837,6 +852,13 @@ export default {
           this.$store.dispatch('alerts/getAlerts')
           this.toogleNote()
         }) : this.toggleNote()
+    },
+    bulkDeleteLastNote(){
+      confirm(i18n.t('confirmDelete')) &&
+        Promise.all(this.selected.map(a => {const note = a.history.filter(h => h.type == 'note').pop();this.$store.dispatch('alerts/deleteNote', [a.id, note.id])})).then(() => {
+          this.clearSelected()
+          this.$store.dispatch('alerts/getAlerts')
+        })
     },
     bulkDeleteAlert() {
       confirm(i18n.t('ConfirmDelete')) &&
