@@ -1,3 +1,5 @@
+sleep 10
+
 # Load nvm
 source $NVM_DIR/nvm.sh
 
