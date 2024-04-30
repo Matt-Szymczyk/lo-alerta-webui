@@ -15,9 +15,8 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": {
-		"setup": "bash ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
-	}
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+
 	// Configure tool-specific properties.
 	// "customizations": {},
 
